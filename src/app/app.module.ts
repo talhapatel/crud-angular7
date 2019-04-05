@@ -1,18 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+
+import { InputUserDataFormComponent } from './input-user-data-form/input-user-data-form.component';
+import { DisplayUserDataComponent } from './display-user-data/display-user-data.component';
+import { AppRoutingModule } from './app-routing.module';
+
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    InputUserDataFormComponent,
+    DisplayUserDataComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule
+ 
+     
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+
+  
+}
