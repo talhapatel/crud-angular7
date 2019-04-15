@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //import {Component,OnInit} from '@angular/core';
 import {Car} from '../display-user-data/cars';
-//import {CarService} from '../../service/carservice';
-/* import {UserInfoModel} from '../models/UserInfoModel';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {UserService} from '../user.service';
-import { DataTable, Column, SelectItem } from 'primeng/primeng'; */
+
 import {MessageService} from 'primeng/api';
 import { log } from 'util';
 
