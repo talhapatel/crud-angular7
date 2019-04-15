@@ -1,0 +1,22 @@
+
+<p-dialog header="User Detail" [(visible)]="display" modal="modal" width="300" [responsive]="true" (onHide)="onClose()">
+  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="users">
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4"><label for="id">User ID</label></div>
+        <div class="ui-grid-col-8"><input pInputText id="id" [(ngModel)]="users.id" /></div>
+    </div>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4"><label for="name">User Name</label></div>
+        <div class="ui-grid-col-8"><input pInputText id="name" [(ngModel)]="users.name" /></div>
+    </div>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-4"><label for="email">User Email</label></div>
+        <div class="ui-grid-col-8"><input pInputText id="email" [(ngModel)]="users.email" /></div>
+    </div>
+
+</div>
+      <p-footer>
+          <button type="button" pButton icon="fa-plus"  label="ADD" (click)="addUser(id,name,email)"></button>
+          <button type="button" pButton icon="fa-close"  label="CANCEL" (click)="onClose()"></button>
+      </p-footer>
+</p-dialog>

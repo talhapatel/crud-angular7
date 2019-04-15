@@ -1,38 +1,96 @@
-<legend>User Information</legend>
-<div>
-	<div class="form-group row"> <!-- GUD -->
-		<label class="col-xs-6 col-form-label">GUID</label>
-		<div class="col-xs-6">{{user.guid}}</div>
-	</div>
 
-	<div class="form-group row"> <!-- Customer UID -->
-		<label class="col-xs-6 col-form-label">Customer UID</label>
-		<div class="col-xs-6">{{user.customerUid}}</div>
-	</div>
+<p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+    <p-header>CRUD for Cars</p-header>
+    <p-column field="vin" header="Vin" [sortable]="true"></p-column>
+    <p-column field="year" header="Year" [sortable]="true"></p-column>
+    <p-column field="brand" header="Brand" [sortable]="true"></p-column>
+    <p-column field="color" header="Color" [sortable]="true"></p-column>
+    <p-footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="pi pi-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></p-footer>
+</p-dataTable>
 
-	<div class="form-group row"> <!-- First Name -->
-		<label class="col-xs-6 col-form-label">First Name</label>
-		<div class="col-xs-6">{{user.first_name}}</div>
-	</div>
 
-	<div class="form-group row"> <!-- Last Name -->
-		<label class="col-xs-6 col-form-label">Last Name</label>
-		<div class="col-xs-6">{{user.last_name}}</div>
-	</div>
+<h3>Dynamic Columns</h3>
+<p-table [columns]="cols" [value]="cars">
+       
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th>
+                edit
+            </th>
+            <th>
+                delete
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+                <button  pButton icon="pi pi-pencil" (click)="selectCarWithButton(rowData)"></button>
+            </td>
+            <td>
+                <button  pButton icon="pi pi-trash" (click)="selectCarWithButton2(rowData)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    </p-table>
 
-	<div class="form-group row"> <!-- E-mail -->
-		<label class="col-xs-6 col-form-label">E-mail</label>
-		<div class="col-xs-6">{{user.email}}</div>
-	</div>
 
-	<div class="form-group row"> <!-- Zip Code -->
-		<label class="col-xs-6 col-form-label">Zip Code</label>
-		<div class="col-xs-6">{{user.zipcode}}</div>
-	</div>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
-	<div class="form-group row"> <!-- Password -->
-		<label class="col-xs-6 col-form-label">Password</label>
-		<div class="col-xs-6">{{user.password}}</div>
-	</div>
+    <p-table [columns]="cols" [value]="cars" [(contextMenuSelection)]="selectedCar3" [contextMenu]="cm">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pContextMenuRow]="rowData">
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    
 
-</div>	
+
+
+
+
+<p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="400">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="car">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="vin">Vin</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="vin" [(ngModel)]="car.vin" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="year">Year</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="year" [(ngModel)]="car.year" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="brand">Brand</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="brand" [(ngModel)]="car.brand" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="color">Color</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="color" [(ngModel)]="car.color" /></div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
